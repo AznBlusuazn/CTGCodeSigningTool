@@ -353,3 +353,7 @@ MigrationBackup/
 CTGEncoder.dll
 CTGUpdater.exe
 TextTemplate.ico
+CTGMySQL.dll
+private/*.*
+private/7zipinfo.txt
+private/7zipinfo.txt

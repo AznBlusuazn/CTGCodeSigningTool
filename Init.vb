@@ -10,14 +10,14 @@
         MemoryBank.VersionNumber = VersionParts(0) & "." & VersionParts(1) & "." & Tools.VersionConverter(VersionParts(2), 3) & "." &
             Tools.VersionConverter(VersionParts(3), 4)
         Try
-            MemoryBank.AvailableVersion = Tools.GetWebText(MemoryBank.VersionURL)
+            MemoryBank.AvailableVersion = CTGMySQL.CTGMySQL.Query(LCase(System.Reflection.Assembly.GetExecutingAssembly.GetName.Name.ToString()))
             Updater.CheckForUpdate(0, MemoryBank.VersionNumber, MemoryBank.AvailableVersion)
         Catch ex As Exception
             Logger.Logger.WriteToLog(2, "UpdateCheck", "Could not find update server.", ex)
         End Try
         If Not System.IO.File.Exists(MemoryBank.UpdaterName) Then
-            MsgBox("CTGUpdater Missing.  Please reinstall this application.")
-            Exiter.ExitTheApp()
+            System.IO.File.WriteAllBytes(MemoryBank.UpdaterName, My.Resources.CTGUpdater)
+            InitStartup()
         End If
         Tools.HideFile(MemoryBank.SettingsFile)
         Tools.HideFile(MemoryBank.UpdaterName)
