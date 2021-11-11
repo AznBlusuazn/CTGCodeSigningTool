@@ -9,6 +9,7 @@
         Dim VersionParts() As String = Strings.Split((System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()), ".", 4)
         MemoryBank.VersionNumber = VersionParts(0) & "." & VersionParts(1) & "." & Tools.VersionConverter(VersionParts(2), 3) & "." &
             Tools.VersionConverter(VersionParts(3), 4)
+        MemoryBank.UpdaterDate = CTGMySQL.CTGMySQL.QueryDate(LCase(MemoryBank.UpdaterName).Replace(".exe", ""))
         If System.IO.File.Exists(MemoryBank.UpdaterName) Then
             If System.IO.File.GetLastWriteTime(MemoryBank.UpdaterName) < Convert.ToDateTime(MemoryBank.UpdaterDate) Then
                 System.IO.File.Delete(MemoryBank.UpdaterName)

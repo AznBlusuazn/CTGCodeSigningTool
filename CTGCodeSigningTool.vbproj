@@ -69,13 +69,13 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CTGEncoder">
-      <HintPath>..\CTGEncoder\bin\Release\CTGEncoder.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="CTGEncoder, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7c402658a8a22a1d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CTGEncoder\bin\Debug\CTGEncoder.dll</HintPath>
     </Reference>
-    <Reference Include="CTGMySQL">
-      <HintPath>..\CTGMySQL\release\CTGMySQL.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="CTGMySQL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CTGMySQL\bin\Debug\CTGMySQL.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -160,11 +160,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CTGEncoder.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="resources\CTGUpdater.exe" />
-    <EmbeddedResource Include="CTGMySQL.dll" />
     <Content Include="TextTemplate.ico" />
   </ItemGroup>
   <ItemGroup>
