@@ -1,7 +1,7 @@
 =============================================
 CTGCodeSigningTool by Geoff Clark
 PUBLISHED by CLARKTRIBEGAMES LLC
-VERSION 1.0.000.0004
+VERSION 1.0.000.0005
 =============================================
 
 SUPPORT THE DEVELOPMENT OF THIS APP @ 
@@ -58,8 +58,9 @@ DEVELOPMENT NOTES
 
 [CURRENT UPDATE]
 
-1.0.000.0004 / 2021.11.10
+1.0.000.0005 / 2021.11.13
 
+- Changed the updater methodology.
 - Added check for updater version and auto replace if older.
 - Updated update server method.
 

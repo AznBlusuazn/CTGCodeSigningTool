@@ -1,6 +1,6 @@
 ﻿Public Class MemoryBank
     Public Shared VersionNumber As String, AvailableVersion As String
-    Public Shared VersionURL As String = "http://www.clarktribegames.com/19763/ctgcodesigningtool.txt"
+    Public Shared UpdateURL As String
     Public Shared UpdaterName As String = "CTGUpdater.exe"
     Public Shared UpdaterDate As String
     Public Shared SettingsFile As String = "CTGCodeSigningTool.config"

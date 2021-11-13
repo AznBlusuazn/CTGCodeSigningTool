@@ -102,7 +102,7 @@
             Dim TheDagger As String = MemoryBank.AllMagicComesWithAPrice, ep As String
             MemoryBank.KeyInMemory = Tools.FindStartsWithInFile(MemoryBank.SettingsFile, "Key=").Replace("Key=", "")
             Try
-                Dim wrapper As New CTGEncoder.Engine(TheDagger)
+                Dim wrapper As New ClarkTribeGames.Coder(TheDagger)
                 ep = Tools.CTGExtractor(MemoryBank.KeyInMemory)
                 TryAgainDearie = wrapper.DecryptData(ep)
             Catch ex As Exception

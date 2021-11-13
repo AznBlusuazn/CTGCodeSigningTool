@@ -15,7 +15,7 @@
             TheLock = MainForm.PFXPassText.Text
         Else
             MemoryBank.KeyInMemory = Tools.FindStartsWithInFile(filename, "Key=").Replace("Key=", "")
-            Dim wrapper As New CTGEncoder.Engine(TheDarkOne)
+            Dim wrapper As New ClarkTribeGames.Coder(TheDarkOne)
             Dim dec As String = Tools.CTGExtractor(MemoryBank.KeyInMemory)
             TheLock = wrapper.DecryptData(dec)
         End If
@@ -40,7 +40,7 @@
             End Try
         End If
         Try
-            Dim wrapper As New CTGEncoder.Engine(TheDarkOne)
+            Dim wrapper As New ClarkTribeGames.Coder(TheDarkOne)
             ep = wrapper.EncryptData(TheLock)
         Catch ex As Exception
             Logger.Logger.WriteToLog(0, "CreateSettings-Encoder",

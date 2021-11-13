@@ -9,24 +9,24 @@
         Dim VersionParts() As String = Strings.Split((System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()), ".", 4)
         MemoryBank.VersionNumber = VersionParts(0) & "." & VersionParts(1) & "." & Tools.VersionConverter(VersionParts(2), 3) & "." &
             Tools.VersionConverter(VersionParts(3), 4)
-        MemoryBank.UpdaterDate = CTGMySQL.CTGMySQL.QueryDate(LCase(MemoryBank.UpdaterName).Replace(".exe", ""))
+        MemoryBank.UpdaterDate = ClarkTribeGames.MySQLReader.Query(LCase(MemoryBank.UpdaterName).Replace(".exe", ""), "d")
         If System.IO.File.Exists(MemoryBank.UpdaterName) Then
             If System.IO.File.GetLastWriteTime(MemoryBank.UpdaterName) < Convert.ToDateTime(MemoryBank.UpdaterDate) Then
                 System.IO.File.Delete(MemoryBank.UpdaterName)
-                PlaceUpdater()
+                ClarkTribeGames.Updater.GetUpdater()
                 InitStartup()
             End If
+        Else
+            ClarkTribeGames.Updater.GetUpdater()
+            InitStartup()
         End If
         Try
-            MemoryBank.AvailableVersion = CTGMySQL.CTGMySQL.Query(LCase(System.Reflection.Assembly.GetExecutingAssembly.GetName.Name.ToString()))
+            MemoryBank.AvailableVersion = ClarkTribeGames.MySQLReader.Query(LCase(System.Reflection.Assembly.GetExecutingAssembly.GetName.Name.ToString()), "v")
+            MemoryBank.UpdateURL = ClarkTribeGames.MySQLReader.Query(LCase(System.Reflection.Assembly.GetExecutingAssembly.GetName.Name.ToString()), "u")
             Updater.CheckForUpdate(0, MemoryBank.VersionNumber, MemoryBank.AvailableVersion)
         Catch ex As Exception
             Logger.Logger.WriteToLog(2, "UpdateCheck", "Could not find update server.", ex)
         End Try
-        If Not System.IO.File.Exists(MemoryBank.UpdaterName) Then
-            PlaceUpdater()
-            InitStartup()
-        End If
         Tools.HideFile(MemoryBank.SettingsFile)
         Tools.HideFile(MemoryBank.UpdaterName)
     End Sub
@@ -47,9 +47,6 @@
         If System.IO.File.Exists(MemoryBank.SettingsFile) Then
             Settings.SettingsAction("load", MemoryBank.SettingsFile)
         End If
-    End Sub
-    Private Shared Sub PlaceUpdater()
-        System.IO.File.WriteAllBytes(MemoryBank.UpdaterName, My.Resources.CTGUpdater)
     End Sub
 
 End Class
