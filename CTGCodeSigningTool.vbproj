@@ -97,7 +97,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Updater.vb" />
     <Compile Include="MemoryBank.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="Exiter.vb" />

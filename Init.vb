@@ -7,8 +7,8 @@
     End Sub
     Private Shared Sub InitStartup()
         Dim VersionParts() As String = Strings.Split((System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()), ".", 4)
-        MemoryBank.VersionNumber = VersionParts(0) & "." & VersionParts(1) & "." & Tools.VersionConverter(VersionParts(2), 3) & "." &
-            Tools.VersionConverter(VersionParts(3), 4)
+        MemoryBank.VersionNumber = VersionParts(0) & "." & VersionParts(1) & "." & ClarkTribeGames.Converters.VersionConverter(VersionParts(2),
+            3) & "." & ClarkTribeGames.Converters.VersionConverter(VersionParts(3), 4)
         MemoryBank.UpdaterDate = ClarkTribeGames.MySQLReader.Query(LCase(MemoryBank.UpdaterName).Replace(".exe", ""), "d")
         If System.IO.File.Exists(MemoryBank.UpdaterName) Then
             If System.IO.File.GetLastWriteTime(MemoryBank.UpdaterName) < Convert.ToDateTime(MemoryBank.UpdaterDate) Then
@@ -23,12 +23,16 @@
         Try
             MemoryBank.AvailableVersion = ClarkTribeGames.MySQLReader.Query(LCase(System.Reflection.Assembly.GetExecutingAssembly.GetName.Name.ToString()), "v")
             MemoryBank.UpdateURL = ClarkTribeGames.MySQLReader.Query(LCase(System.Reflection.Assembly.GetExecutingAssembly.GetName.Name.ToString()), "u")
-            Updater.CheckForUpdate(0, MemoryBank.VersionNumber, MemoryBank.AvailableVersion)
+            If (ClarkTribeGames.Updater.Checker(MemoryBank.VersionNumber, MemoryBank.AvailableVersion)) Then
+                Dim updatetext = "Update " & MemoryBank.AvailableVersion & " Available!", answer As Integer
+                answer = MsgBox(updatetext & vbCrLf & vbCrLf & "Would you like to update now?", vbYesNo)
+                If answer = vbYes Then ClarkTribeGames.Updater.InstallUpdate(Application.ProductName, MemoryBank.UpdateURL)
+            End If
         Catch ex As Exception
             Logger.Logger.WriteToLog(2, "UpdateCheck", "Could not find update server.", ex)
         End Try
-        Tools.HideFile(MemoryBank.SettingsFile)
-        Tools.HideFile(MemoryBank.UpdaterName)
+        ClarkTribeGames.FilesFolders.HideFile(MemoryBank.SettingsFile)
+        ClarkTribeGames.FilesFolders.HideFile(MemoryBank.UpdaterName)
     End Sub
     Private Shared Sub InitLibs()
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf Tools.CTGEncoderLoader

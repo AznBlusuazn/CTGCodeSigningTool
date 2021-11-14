@@ -6,9 +6,6 @@
     Private Sub PFXTextBox_TextChanged(sender As Object, e As EventArgs) Handles PFXPassText.TextChanged
         Execute.CheckChanges("key", SaveCheck, PFXPassText, TimestampDrop, PFXPassButton)
     End Sub
-    'Private Sub PFXTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles PFXPassText.KeyPress
-    '    e.Handled = Tools.TestKeyPress(e.KeyChar)
-    'End Sub
 
     'MenuBar
     Private Sub LoadSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadMenuItem.Click
@@ -21,7 +18,13 @@
         Init.InitFields()
     End Sub
     Private Sub UpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckMenuItem.Click
-        Updater.CheckForUpdate(1, MemoryBank.VersionNumber, MemoryBank.AvailableVersion)
+        If (ClarkTribeGames.Updater.Checker(MemoryBank.VersionNumber, MemoryBank.AvailableVersion)) Then
+            Dim updatetext = "Update " & MemoryBank.AvailableVersion & " Available!", answer As Integer
+            answer = MsgBox(updatetext & vbCrLf & vbCrLf & "Would you like to update now?", vbYesNo)
+            If answer = vbYes Then ClarkTribeGames.Updater.InstallUpdate(Application.ProductName, MemoryBank.UpdateURL)
+        Else
+            MsgBox("No Update Available!")
+        End If
     End Sub
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitMenuItem.Click, Me.FormClosing
         Exiter.ExitTheApp()
@@ -29,22 +32,53 @@
 
     'WebButtons
     Private Sub ToolLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ToolLink.LinkClicked
-        Tools.GoToWeb("https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool")
+        Try
+            ClarkTribeGames.Web.GoToWeb("https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool")
+        Catch ex As Exception
+            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
+        End Try
+
     End Sub
     Private Sub FBButton_Click(sender As Object, e As EventArgs) Handles FBButton.Click
-        Tools.GoToWeb("https://www.patreon.com/clarktribegames")
+        Try
+            ClarkTribeGames.Web.FB()
+        Catch ex As Exception
+            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
+        End Try
     End Sub
     Private Sub DCButton_Click(sender As Object, e As EventArgs) Handles DCButton.Click
-        Tools.GoToWeb("https://discord.gg/6kW4der")
+        Try
+            ClarkTribeGames.Web.DS()
+        Catch ex As Exception
+            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
+        End Try
     End Sub
     Private Sub MailButton_Click(sender As Object, e As EventArgs) Handles MailButton.Click
-        Tools.GoToWeb("mailto:info@clarktribegames.com")
+        Try
+            ClarkTribeGames.Web.EM()
+        Catch ex As Exception
+            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
+        End Try
     End Sub
     Private Sub DonateButton_Click(sender As Object, e As EventArgs) Handles DonateButton.Click
-        Tools.GoToWeb("https://www.paypal.com/paypalme/aznblusuazn")
+        Try
+            ClarkTribeGames.Web.PP()
+        Catch ex As Exception
+            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
+        End Try
     End Sub
     Private Sub PTButton_Click(sender As Object, e As EventArgs) Handles PTButton.Click
-        Tools.GoToWeb("https://www.patreon.com/clarktribegames")
+        Try
+            ClarkTribeGames.Web.PT()
+        Catch ex As Exception
+            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
+        End Try
     End Sub
 
     'SelectButtons

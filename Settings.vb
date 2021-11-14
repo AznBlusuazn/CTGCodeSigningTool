@@ -32,7 +32,7 @@
             End Try
         Else
             Try
-                Tools.UnhideFile(MemoryBank.SettingsFile)
+                ClarkTribeGames.FilesFolders.UnhideFile(MemoryBank.SettingsFile)
                 System.IO.File.WriteAllText(filename, "[CTGCodeSigningTool Settings]" & vbCrLf)
             Catch ex As Exception
                 Logger.Logger.WriteToLog(0, "CreateSettings-CreateNew",

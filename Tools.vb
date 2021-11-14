@@ -1,12 +1,4 @@
 ﻿Public Class Tools
-    Public Shared Sub GoToWeb(url As String)
-        Try
-            Process.Start(url)
-        Catch ex As Exception
-            Logger.Logger.WriteToLog(1, "GoToWeb", "Something went wrong with launching system your browser." &
-                vbCrLf & vbCrLf & "Please try going to " & url & " manually.", ex)
-        End Try
-    End Sub
     Public Shared Sub TextWriter(file As String, text As String, type As Boolean)
         Dim TextWriter As New System.IO.StreamWriter(file, type)
         TextWriter.WriteLine(text)
@@ -56,7 +48,6 @@
     End Function
 
     Public Shared Function CTGExtractor(text As String) As String
-        Console.WriteLine(text)
         Dim SealTeam As Integer = CInt(text.Substring(2, 2)), DivideAndConquer As String = text.Split(Chr(39))(0)
         Dim FinalS As String = DivideAndConquer.Substring(SealTeam + 4, DivideAndConquer.Length - SealTeam - 4)
         Return FinalS
@@ -73,36 +64,4 @@
     Public Shared Sub WarningSound()
         My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Exclamation)
     End Sub
-    Public Shared Function VersionConverter(versionpart As String, digits As Integer) As String
-        Dim PartLength As Integer = Len(versionpart)
-        Select Case PartLength
-            Case digits - 1
-                VersionConverter = "0" + versionpart
-            Case digits - 2
-                VersionConverter = "00" + versionpart
-            Case digits - 3
-                VersionConverter = "000" + versionpart
-            Case digits - 4
-                VersionConverter = "0000" + versionpart
-            Case Else
-                VersionConverter = versionpart
-        End Select
-    End Function
-    Public Shared Sub HideFile(hidefile As String)
-        If System.IO.File.Exists(hidefile) Then
-            Dim ToHideFile As New System.IO.FileInfo(hidefile) With {
-                .Attributes = IO.FileAttributes.Hidden}
-        End If
-    End Sub
-    Public Shared Sub UnhideFile(hiddenfile As String)
-        If System.IO.File.Exists(hiddenfile) Then
-            Dim ToHideFile As New System.IO.FileInfo(hiddenfile) With {
-                .Attributes = IO.FileAttributes.Normal}
-        End If
-    End Sub
-    Public Shared Function GetWebText(url As String) As String
-        Dim client As New System.Net.WebClient()
-        Dim reader As New System.IO.StreamReader(client.OpenRead(url))
-        Return reader.ReadToEnd
-    End Function
 End Class
