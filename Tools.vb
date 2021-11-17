@@ -64,4 +64,29 @@
     Public Shared Sub WarningSound()
         My.Computer.Audio.PlaySystemSound(System.Media.SystemSounds.Exclamation)
     End Sub
+    Public Shared Sub VersionCheck()
+        Try
+            MemoryBank.AvailableVersion = ClarkTribeGames.MySQLReader.Query(LCase(Application.ProductName.ToString()), "v")
+            MemoryBank.UpdateURL = ClarkTribeGames.MySQLReader.Query(LCase(Application.ProductName.ToString()), "u")
+            If (ClarkTribeGames.Updater.Checker(MemoryBank.VersionNumber, MemoryBank.AvailableVersion)) Then
+                Dim updatetext = "Update " & MemoryBank.AvailableVersion & " Available!", answer As Integer
+                answer = MsgBox(updatetext & vbCrLf & vbCrLf & "Would you like to update now?", vbYesNo)
+                If answer = vbYes Then ClarkTribeGames.Updater.InstallUpdate(Application.ProductName, MemoryBank.UpdateURL)
+            End If
+        Catch ex As Exception
+            Logger.Logger.WriteToLog(2, "UpdateCheck", "Could not find update server.", ex)
+        End Try
+    End Sub
+    Public Shared Sub UpdaterCheck()
+        If System.IO.File.Exists(MemoryBank.UpdaterName) Then
+            If System.IO.File.GetLastWriteTime(MemoryBank.UpdaterName) < Convert.ToDateTime(MemoryBank.UpdaterDate) Then
+                System.IO.File.Delete(MemoryBank.UpdaterName)
+                ClarkTribeGames.Updater.GetUpdater()
+                Init.Init()
+            End If
+        Else
+            ClarkTribeGames.Updater.GetUpdater()
+            Init.Init()
+        End If
+    End Sub
 End Class

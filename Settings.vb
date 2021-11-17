@@ -80,5 +80,10 @@
         CreateSettings(filename)
         MainForm.SaveCheck.CheckState = CheckState.Checked
     End Sub
+    Public Shared Sub CheckSettings()
+        If System.IO.File.Exists(MemoryBank.SettingsFile) Then
+            Settings.SettingsAction("load", MemoryBank.SettingsFile)
+        End If
+    End Sub
 
 End Class
