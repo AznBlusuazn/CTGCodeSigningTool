@@ -69,8 +69,8 @@
             MemoryBank.AvailableVersion = ClarkTribeGames.MySQLReader.Query(LCase(Application.ProductName.ToString()), "v")
             MemoryBank.UpdateURL = ClarkTribeGames.MySQLReader.Query(LCase(Application.ProductName.ToString()), "u")
             If (ClarkTribeGames.Updater.Checker(MemoryBank.VersionNumber, MemoryBank.AvailableVersion)) Then
-                Dim updatetext = "Update " & MemoryBank.AvailableVersion & " Available!", answer As Integer
-                answer = MsgBox(updatetext & vbCrLf & vbCrLf & "Would you like to update now?", vbYesNo)
+                Dim updatetext = $"Update {MemoryBank.AvailableVersion} Available!", answer As Integer
+                answer = MsgBox($"{updatetext}{vbCrLf}{vbCrLf}Would you like to update now?", vbYesNo)
                 If answer = vbYes Then ClarkTribeGames.Updater.InstallUpdate(Application.ProductName, MemoryBank.UpdateURL)
             End If
         Catch ex As Exception

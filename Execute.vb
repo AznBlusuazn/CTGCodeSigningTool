@@ -42,7 +42,7 @@
             ExtGroup &= "*" & ExtName & ", "
         Next
         ExtGroup = ExtGroup.Substring(0, ExtGroup.Length - 2)
-        ExtDesc &= " " & "(" & ExtGroup & ")|" & ExtGroup.Replace(",", ";")
+        ExtDesc &= $" ({ExtGroup})|{ExtGroup.Replace(",", ";")}"
         Dim fd As New OpenFileDialog With {
             .Title = Desc,
             .InitialDirectory = SelectedDir,
@@ -73,7 +73,7 @@
                     If Not InStr(ExtGroup, ConfirmExt, CompareMethod.Text) = 0 Then
                         textbox.Text = SourceFile
                     Else
-                        MsgBox("Please select the correct file type (" & ExtGroup & ") and Try Again.")
+                        MsgBox($"Please select the correct file type ({ExtGroup}) and Try Again.")
                     End If
             End Select
 
@@ -110,9 +110,9 @@
                 "Something went wrong with executing during decryption.", ex)
             End Try
         End If
-        Dim Args As String = "sign /tr " & Chr(34) & MainForm.TimestampDrop.Text & Chr(34) &
-            " /td sha256 /fd sha256 /f " & Chr(34) & MainForm.PFXFileText.Text & Chr(34) &
-            " /p " & TryAgainDearie & " " & Chr(34) & MainForm.FileText.Text & Chr(34)
+        Dim Args As String = $"sign /tr {Chr(34)}{MainForm.TimestampDrop.Text}{Chr(34)}" &
+            $" /td sha256 /fd sha256 /f {Chr(34)}{MainForm.PFXFileText.Text}{Chr(34)}" &
+            $" /p {TryAgainDearie} {Chr(34)}{MainForm.FileText.Text}{Chr(34)}"
         Dim pHelp As New ProcessStartInfo With {
             .FileName = MainForm.ToolText.Text,
             .Arguments = Args,
@@ -140,7 +140,7 @@
             Counter += 1
         End If
         If Counter > 0 Then
-            MsgBox("Warning:" & vbCrLf & vbCrLf & Message.ToString, vbCritical + vbOKOnly)
+            MsgBox($"Warning:{vbCrLf}{vbCrLf}{Message}", vbCritical + vbOKOnly)
             Return False
         Else
             Return True

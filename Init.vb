@@ -2,7 +2,7 @@
     Public Shared Sub Init()
         InitStartup()
         InitLibs()
-        InitFields()
+        If Not System.IO.File.Exists(MemoryBank.SettingsFile) Then InitFields()
     End Sub
     Private Shared Sub InitStartup()
         MemoryBank.VersionNumber = ClarkTribeGames.Converters.GetVersion(Application.ProductVersion)

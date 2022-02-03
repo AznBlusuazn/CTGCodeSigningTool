@@ -19,8 +19,8 @@
     End Sub
     Private Sub UpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckMenuItem.Click
         If (ClarkTribeGames.Updater.Checker(MemoryBank.VersionNumber, MemoryBank.AvailableVersion)) Then
-            Dim updatetext = "Update " & MemoryBank.AvailableVersion & " Available!", answer As Integer
-            answer = MsgBox(updatetext & vbCrLf & vbCrLf & "Would you like to update now?", vbYesNo)
+            Dim updatetext = $"Update {MemoryBank.AvailableVersion} Available!", answer As Integer
+            answer = MsgBox($"{updatetext}{vbCrLf}{vbCrLf}Would you like to update now?", vbYesNo)
             If answer = vbYes Then ClarkTribeGames.Updater.InstallUpdate(Application.ProductName, MemoryBank.UpdateURL)
         Else
             MsgBox("No Update Available!")
@@ -29,13 +29,12 @@
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitMenuItem.Click, Me.FormClosing
         Exiter.ExitTheApp()
     End Sub
-
     'WebButtons
     Private Sub ToolLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ToolLink.LinkClicked
         Try
             ClarkTribeGames.Web.GoToWeb("https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool")
         Catch ex As Exception
-            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            MsgBox($"Error launch Browser!{vbCrLf}See Log File.", vbExclamation)
             Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
         End Try
 
@@ -44,7 +43,7 @@
         Try
             ClarkTribeGames.Web.FB()
         Catch ex As Exception
-            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            MsgBox($"Error launch Browser!{vbCrLf}See Log File.", vbExclamation)
             Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
         End Try
     End Sub
@@ -52,7 +51,7 @@
         Try
             ClarkTribeGames.Web.DS()
         Catch ex As Exception
-            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            MsgBox($"Error launch Browser!{vbCrLf}See Log File.", vbExclamation)
             Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
         End Try
     End Sub
@@ -60,7 +59,7 @@
         Try
             ClarkTribeGames.Web.EM()
         Catch ex As Exception
-            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            MsgBox($"Error launch Browser!{vbCrLf}See Log File.", vbExclamation)
             Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
         End Try
     End Sub
@@ -68,7 +67,7 @@
         Try
             ClarkTribeGames.Web.PP()
         Catch ex As Exception
-            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            MsgBox($"Error launch Browser!{vbCrLf}See Log File.", vbExclamation)
             Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
         End Try
     End Sub
@@ -76,11 +75,10 @@
         Try
             ClarkTribeGames.Web.PT()
         Catch ex As Exception
-            MsgBox("Error launch Browser!" & vbCrLf & "See Log File.", vbExclamation)
+            MsgBox($"Error launch Browser!{vbCrLf}See Log File.", vbExclamation)
             Logger.Logger.WriteToLog(1, "GoToWeb", "Browser error.", ex)
         End Try
     End Sub
-
     'SelectButtons
     Private Sub ToolButton_Click(sender As Object, e As EventArgs) Handles ToolButton.Click
         Execute.LoadFile("tool", ToolText)
@@ -91,7 +89,6 @@
     Private Sub FileButton_Click(sender As Object, e As EventArgs) Handles FileButton.Click
         Execute.LoadFile("file", FileText)
     End Sub
-
     'ConfirmButtons
     Private Sub TimestampButton_Click(sender As Object, e As EventArgs) Handles TimestampButton.Click
         MsgBox(MemoryBank.SettingsFile)
@@ -100,7 +97,6 @@
     Private Sub PFXPassButton_Click(sender As Object, e As EventArgs) Handles PFXPassButton.Click
         Execute.PFXPassword(PFXPassText, PFXPassButton)
     End Sub
-
     'ExecuteButton
     Private Sub GoButton_Click(sender As Object, e As EventArgs) Handles GoButton.Click
         Execute.GoTime()
